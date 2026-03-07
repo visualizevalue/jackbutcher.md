@@ -24,6 +24,11 @@ The constraints do the work.
 
 The file isn't the moat. The person is.
 
+## Links
+
+- [Announcement](https://x.com/jackbutcher/status/2030342223515079104)
+- [@jackbutcher](https://x.com/jackbutcher)
+
 ## More from Visualize Value
 
 - [The Permissionless Apprentice](https://visualizevalue.com/products/the-permissionless-apprentice)
