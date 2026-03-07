@@ -10,32 +10,18 @@ Drop it into any AI. Generate content in this voice.
 
 ## The voice, quantified
 
-| | |
-|---|---|
-| **Median tweet** | 9 words |
-| **Under 10 words** | 57% |
-| **Under 20 words** | 80% |
-| **Single sentence** | 78% |
-| **"You/your"** | 30% of tweets |
-| **"I/my"** | 7% of tweets |
-
-| Length | Avg likes |
-|---|---|
-| 6-10 words | 258 |
-| 11-15 words | 241 |
-| 16-20 words | 198 |
-| 31+ words | 139 |
-
-Shorter performs better. The voice knows this.
-
-| Punctuation | Per tweet |
-|---|---|
-| Line breaks | 1.31 |
-| Periods | 0.70 |
-| Commas | 0.44 |
-| Question marks | 0.04 |
-
-Line breaks do the work. Not commas.
+```
+  50,796 tweets scanned
+  13,962 indexed (RTs, replies, URL-only removed)
+  ─────────────────────────────────────────────
+  median length        9 words
+  under 10 words       57%
+  single sentence      78%
+  "you" vs "I"         30% vs 7%
+  line breaks/tweet    1.3
+  question marks       0.04
+  shorter = more likes (258 avg at 6-10w, 139 at 31+w)
+```
 
 ## How to use it
 
