@@ -45,6 +45,76 @@ Shorter tweets get more engagement. The sweet spot is 6-15 words.
 - **Uncomfortable truths**: "Moving from theory to practice will cost you status." States what people avoid saying.
 - **Compressed wisdom**: "Step 1. Make yourself useful. Step 2. Make yourself scarce." Entire frameworks in two lines.
 
+## Word-level mechanics
+
+These are the micro-level devices that make the writing stick. Use them deliberately.
+
+### Alliterative contrasts
+When comparing two ideas, use words that start with the same letter but mean opposite things. This is the signature move. The shared letter creates a sonic link that makes the contrast feel inevitable.
+- Complexity / Clarity: "Complexity impresses your peers. Clarity impresses your customers."
+- Default / Design: "Complexity happens by default. Simplicity happens by design."
+- Labor / Leverage: "Make today's labor tomorrow's leverage."
+- Employment / Entrepreneurship: "Employment is a game you play. Entrepreneurship is a game you design."
+- Good / Great: "Good marketing finds customers. Great marketing creates customers."
+- Timely / Timeless: "Two ways to win at content: Extremely timely. Extremely timeless."
+- Consume / Create: "Consume to feel smarter. Produce to get smarter."
+- Passion / Problem: "Finding your passion will have you going in circles. Finding a problem you're passionate about solving will give you direction."
+- Process / Product: "Build the product, productize the process. Sell both."
+- Pay / Play: "Pay to learn vs. play to earn"
+- Failure / Feedback: "Failure is free feedback."
+- Smart / Start: "Everyone's smart until they start."
+- Selfishly / Selflessly: "Selfishly pursue, selflessly publish."
+- Build / Billed: "Build or be billed."
+- Trick / Transparency: "The best marketing trick is transparency."
+
+### Matched meter
+Couplets where both lines have the same syllable count and stress pattern. Equal weight makes the contrast feel balanced and true.
+- "Complexity happens by default. / Simplicity happens by design." (9/9 syllables)
+- "Work hard to learn. / Work smart to earn." (4/4)
+- "Consume to feel smarter. / Produce to get smarter." (6/6)
+
+### Chiasmus
+A-B structure flips to B-A. The reversal creates a feeling of completeness.
+- "You get rich by taking large amounts of risk with small amounts of money. You stay rich by taking small amounts of risk with large amounts of money."
+- "You don't pick a niche, a niche picks you."
+- "We don't know until we try, but we don't want to try until we know."
+
+### Circular loops
+The ending returns to the beginning. Creates the feeling of an inescapable truth.
+- "If you try more you'll fail more. If you fail more you'll care less. If you care less you'll try more."
+- "Use your free time to build systems to create more free time to create more systems."
+- "Few understand that you only need a few to understand."
+
+### Internal rhyme
+Sound echoes within or across lines. Not forced. Just enough to make it memorable.
+- "Work hard to learn. Work smart to earn." (learn/earn)
+- "Build or be billed." (build/billed)
+- "Overthinkers are underpaid." (over/under phonetic mirror)
+
+### Negation flips
+Same words, add or remove "don't" to invert the meaning. The repetition makes the contrast undeniable.
+- "To make money while you sleep, build things that don't sleep."
+- "If you don't have organic traction, you don't have traction."
+- "If everyone is verified, no one is verified."
+- "1. Say yes to almost everything. 2. Figure out what you're good at. 3. Say no to almost everything."
+
+### Paradox
+Contradicts itself to reveal a deeper truth. The contradiction is what makes you stop.
+- "The most selfish thing you can do is help as many people as possible."
+- "To add value, subtract complexity."
+- "The less you write, the more you say."
+- "If it looks simple, it was hard."
+
+### Monosyllabic endings
+Punchlines land on short, blunt, Anglo-Saxon words. Not Latinate. Not polysyllabic. One syllable. Done.
+- start, ship, edge, check, work, sleep, earn, build
+
+### Lowercase as register
+Lowercase signals "thinking out loud" rather than "making a pronouncement." Paradoxically gives more authority. The top 4 non-image tweets are all lowercase.
+- "creativity dies without deadlines"
+- "everyone's smart until they start"
+- "if everyone understands what you're doing, you're late"
+
 ## Opening patterns
 Most common openers, in order:
 1. Observation/declaration (82%): "Complexity impresses your peers. Clarity impresses your customers."
