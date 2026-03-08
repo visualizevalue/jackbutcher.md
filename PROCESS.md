@@ -1,43 +1,36 @@
-# How to build your own writing profile
+# How to build your own .md file
 
-This documents the exact process used to create `jackbutcher.md` from a Twitter archive. Follow these steps to build a writing profile for any voice.
+The process for extracting a writing voice from any body of work.
 
-## 1. Download your Twitter archive
+## 1. Get the raw material
 
-Go to Settings > Your Account > Download an archive of your data on X/Twitter. It takes 24-48 hours. You'll get a `.zip` file.
+You need a corpus. Tweets, blog posts, newsletters, essays, transcripts. The format doesn't matter. Volume and engagement data do.
 
-The file you need is inside:
-
-```
-data/tweets.js
-```
-
-This is a JavaScript file, not JSON. It starts with:
+For Twitter/X: Settings > Your Account > Download an archive. The file you need is `data/tweets.js`. It's JavaScript, not JSON:
 
 ```js
 window.YTD.tweets.part0 = [ ... ]
 ```
 
-## 2. Pre-process the archive
+For other platforms: export or scrape your content. You need the text and some measure of performance (views, likes, shares, comments).
 
-The raw archive contains every tweet you've ever posted, including retweets, replies, and low-signal noise. Build a script to filter it down.
+## 2. Filter to signal
 
-Strip:
-- Retweets (text starts with "RT @")
-- Pure replies (text starts with "@")
-- URL-only tweets (just a link, no commentary)
-- Tweets with no text (image-only posts)
+Your raw archive is mostly noise. Strip it down to the writing that performed.
 
-Extract these fields per tweet:
-- `id`
-- `full_text` (the tweet body)
-- `created_at` (timestamp)
-- `favorite_count` (likes)
-- `retweet_count` (retweets)
+Remove:
+- Reposts / retweets
+- Replies and conversations
+- Link-only posts with no original text
+- Anything with no text
 
-Sort by `favorite_count` descending. Output as compact JSON.
+Keep:
+- Original writing
+- Engagement metrics (likes, shares, views)
 
-Example script (TypeScript):
+Sort by engagement, descending. This is your working dataset. Engagement tells you what the audience responds to, not just what you happened to write.
+
+Example pre-processing script:
 
 ```ts
 import { readFileSync, writeFileSync } from 'fs'
@@ -65,256 +58,174 @@ const filtered = tweets
   }))
   .sort((a: any, b: any) => b.likes - a.likes)
 
-writeFileSync('tweet-index.json', JSON.stringify(filtered))
-console.log(`${filtered.length} tweets indexed`)
+writeFileSync('index.json', JSON.stringify(filtered))
 ```
 
-For reference: 50,796 tweets filtered down to 13,962.
+## 3. Measure the shape
 
-## 3. Quantify the voice
+Feed the top 300-500 posts to an AI. Run these analyses separately. Each produces a section of the profile.
 
-Feed the top 300-500 tweets to an AI and run these analyses. Each one builds a section of the profile.
-
-### 3a. Shape
-
-Prompt:
+### Length
 
 ```
-Here are my top 500 tweets sorted by engagement. Calculate:
-- Median word count per tweet
-- % of tweets under 10 words
-- % of tweets under 20 words
+Calculate:
+- Median word count
+- % under 10 words, under 20, under 50
 - % that are a single sentence
-- Average word count by engagement tier (top 100 vs bottom 100)
-- Correlation between length and engagement
+- Average engagement by word count bracket
 ```
 
-### 3b. Perspective
-
-Prompt:
+### Perspective
 
 ```
-Analyze pronoun usage across these tweets:
-- What % contain "you" or "your"?
-- What % contain "I" or "my"?
-- What % contain "we" or "our"?
-- In the top 100 tweets specifically, what are these ratios?
+Analyze pronoun usage:
+- % containing "you/your"
+- % containing "I/my"
+- % containing "we/our"
+- Compare ratios in top 100 vs rest
 ```
 
-### 3c. Punctuation fingerprint
-
-Prompt:
+### Punctuation
 
 ```
-Count the average per tweet:
-- Periods
-- Commas
-- Line breaks / newlines
-- Question marks
-- Exclamation points
-- Colons
-- Semicolons
-
-Also: what % of tweets end with a period vs no punctuation?
-Compare engagement for each.
+Count average per post:
+- Periods, commas, line breaks, question marks, exclamation points, colons
+- What % end with a period vs no punctuation?
+- Compare engagement for each ending type
 ```
 
-### 3d. Structure templates
-
-Prompt:
+### Structure
 
 ```
-Classify these tweets by structure:
+Classify by structure:
 - Single sentence
-- Two-part parallel ("X does A. Y does B.")
-- Conditional ("If X, then Y.")
-- Numbered list ("1. Do X. 2. Do Y.")
-- Explicit contrast ("X vs. Y")
+- Two-part parallel
+- Conditional
+- Numbered list
+- Explicit contrast
 - Other
-
-Give percentages for each category.
-```
-
-### 3e. Opening patterns
-
-Prompt:
-
-```
-Classify the first word or phrase of each tweet:
-- Observation/declaration (starts with a noun or statement)
-- Numbered list (starts with "1.")
-- Conditional (starts with "If" or "When")
-- Imperative verb (starts with a command)
-- Quote (starts with a direct quote)
-- Question (starts with or is a question)
-
 Give percentages.
 ```
 
-### 3f. Verb mood
-
-Prompt:
+### Openings and closings
 
 ```
-Classify each tweet by its dominant verb mood:
-- Declarative (statement of fact)
+Classify opening patterns (declaration, list, conditional, imperative, quote, question).
+Classify closing patterns (what part of speech is the final word? period or no period?).
+Give percentages. Compare engagement.
+```
+
+### Verb mood
+
+```
+Classify by dominant verb mood:
+- Declarative (statement)
 - Imperative (command)
 - Conditional (if/when)
 - Interrogative (question)
-
-Give percentages. Compare average engagement for each mood.
+Give percentages. Compare engagement.
 ```
 
-## 4. Extract rhetorical patterns
+## 4. Find the rhetorical moves
 
-This is the qualitative layer. Feed the top 300 tweets and prompt:
+This is where it gets qualitative. Feed the top 300 posts:
 
 ```
-Identify the recurring rhetorical moves in these tweets. For each move:
+Identify recurring rhetorical moves. For each:
 - Name it
-- Describe the mechanics
+- Describe the mechanics (what makes it work)
 - Give 3-5 examples from the data
 
-Look for: contrast pairs, reframes, quantification of abstract ideas,
-humor through understatement, uncomfortable truths, compressed frameworks.
+Don't just label them. Explain the underlying logic.
 ```
+
+Every voice has its own set. Some common ones: contrast pairs, reframes, quantification of abstract ideas, compressed frameworks, humor through understatement, uncomfortable truths.
 
 ## 5. Extract word-level mechanics
 
-These are the micro-level devices. Run each as a separate analysis.
-
-### 5a. Alliterative contrasts
+Go deeper than rhetorical moves. These are the sentence-level devices.
 
 ```
-Find every tweet where two compared or contrasted concepts start with
-the same letter. Example: "Complexity" vs "Clarity" both start with C.
-
-List every instance with the exact tweet text and which letter pair is used.
+Look for:
+- Sound patterns: alliteration, internal rhyme, matched syllable counts
+- Structural devices: chiasmus (A-B flips to B-A), circular loops, negation flips
+- Contrast frames: classify every syntactic structure used to carry a comparison
+- Word choices: what part of speech do sentences end on? monosyllabic or polysyllabic?
+- Case patterns: does capitalization or lack of it serve a purpose?
+- Punctuation as device: does any punctuation mark do structural work beyond grammar?
 ```
 
-### 5b. Sound devices
-
-```
-Find examples of:
-- Matched meter: couplets where both lines have equal syllable counts
-- Chiasmus: A-B structure flips to B-A
-- Circular loops: ending returns to beginning
-- Internal rhyme: sound echoes within or across lines
-- Negation flips: same words with "don't" added/removed
-- Paradox: self-contradictory statements that reveal truth
-
-Give exact tweet text for each.
-```
-
-### 5c. Closing patterns
-
-```
-Analyze how these tweets END:
-- What are the 20 most common final words?
-- What part of speech is the final word usually?
-- Do tweets end with a period or no punctuation? Compare engagement.
-- Are there structural closing patterns (punchline inversion, imperative, etc.)?
-```
-
-### 5d. Contrast frames
-
-```
-Find every tweet that contains a contrast. Classify the SYNTACTIC FRAME:
-- "X does A. Y does B." (parallel declaration)
-- "X, not Y." (negation)
-- Single-sentence reframe
-- "If X, then Y." (conditional reveal)
-- Two words, no verb (juxtaposed pair)
-- Numbered progression
-- "X vs Y" (explicit versus)
-- Any other frames
-
-Rank by frequency. Give 3+ examples of each.
-```
+Run each as a separate prompt. One prompt per device category.
 
 ## 6. Map the negative space
 
-What the voice never says is as important as what it does say.
+What the voice never says is as defining as what it does say.
 
 ```
-Read through 500 tweets and identify categories of content that NEVER
-or almost never appear. Check for:
-- Personal emotions ("I feel...")
-- Apologies or self-correction
-- Current events or news commentary
-- Personal biographical details
-- Engagement asks (like/share/follow)
-- Gratitude performances ("so grateful...")
-- Vulnerability theater ("I'll be honest...")
-- Motivational cliches ("believe in yourself")
-- Own success metrics (revenue, followers)
-- Pop culture references
-- Political opinions
-- Religious references
-- Complaining about others
+Read 500 posts and identify categories of content that never or almost
+never appear. Check for absence of:
+- Personal emotions, apologies, current events, biographical details
+- Engagement asks, gratitude performances, vulnerability theater
+- Motivational cliches, own success metrics, pop culture references
+- Political opinions, religious references, complaints about others
 
-For each, confirm whether truly absent or count rare exceptions.
+For each, confirm truly absent or count rare exceptions.
 ```
 
-## 7. Build the banned words list
+## 7. Build the constraint list
 
-```
-Based on the voice you've analyzed, generate a list of words and phrases
-that this voice would NEVER use. Think about:
-- Corporate jargon
-- Filler phrases
-- Hedging language
-- Buzzwords
-- Transition words that add no meaning
+Two parts:
 
-This should be the words that would break the voice if they appeared.
-```
+**Banned words.** Words and phrases that would break the voice if they appeared. Corporate jargon, filler phrases, hedging language, buzzwords, meaningless transitions.
+
+**Anti-patterns.** Structural habits the voice avoids. Long explanations, preamble before the point, summary paragraphs, excessive adjectives, self-congratulation.
 
 ## 8. Create rewrite pairs
 
-Pick 10 ideas that appear in the tweet archive. Write each one two ways:
+Pick 10 ideas from the corpus. Write each two ways:
 
-1. How a generic writer would say it (long, hedging, jargon-filled)
-2. How this voice actually said it (compressed, direct, no fat)
+1. How a generic writer would say it
+2. How this voice actually said it
 
-These pairs teach the compression pattern by example. They show an AI the gap between default writing and the target voice.
+These teach compression by example. They show an AI the exact distance between default output and the target voice.
 
-## 9. Select reference tweets
+## 9. Select reference examples
 
-Pull 20-30 of the highest-performing tweets that best represent the voice. These serve as few-shot examples. Choose for variety across the rhetorical moves and structural patterns you've identified.
+Pull 20-30 of the highest-performing posts that best represent the voice. Choose for variety across the rhetorical moves, structural patterns, and themes you've identified. These serve as few-shot examples.
 
 ## 10. Assemble the file
 
-Combine everything into a single markdown file. Recommended section order:
+One markdown file. Recommended order:
 
-1. Voice (one-paragraph description)
-2. Numbers (shape of the writing)
+1. Voice description (one paragraph)
+2. Shape (length, sentence count)
 3. Perspective (pronoun ratios)
-4. Punctuation (fingerprint)
+4. Punctuation fingerprint
 5. Structure templates
-6. What performs (engagement x length)
-7. Sentence structure
-8. Rhetorical patterns
-9. Word-level mechanics
-10. Closing patterns
-11. Contrast frames
-12. Verb mood
-13. Colon as pivot (or other punctuation devices)
-14. What the voice never says
-15. Opening patterns
-16. Signature vocabulary
-17. Tone
-18. Themes
-19. Banned words
-20. Anti-patterns (what he never does)
-21. Long-form format rules
-22. Rewrite pairs
-23. Reference tweets
+6. Engagement x length
+7. Rhetorical moves
+8. Word-level mechanics
+9. Contrast frames
+10. Verb mood
+11. Opening and closing patterns
+12. Negative space (what the voice never says)
+13. Signature vocabulary
+14. Tone
+15. Themes
+16. Banned words and anti-patterns
+17. Rewrite pairs
+18. Reference examples
+
+## 11. Validate with the author
+
+Show every finding to the person whose voice it is. Some patterns are intentional. Some are accidents. The file should only contain the deliberate ones.
+
+This step is not optional. Without it you're documenting habits, not voice.
 
 ## Notes
 
-- The more data you have, the better. 1,000 tweets is a minimum. 10,000+ gives you statistical confidence.
-- Engagement data is critical. It tells you what the audience responds to vs what you just happened to write.
-- Run each analysis separately. Trying to extract everything in one prompt produces shallow results.
-- Validate findings with the author. Some patterns are intentional. Some are accidents. The file should only contain the intentional ones.
-- The file is never finished. As you discover new patterns, add them.
+- 1,000 posts is a minimum. 10,000+ gives statistical confidence.
+- Engagement data is critical. Without it you're measuring output, not signal.
+- Run each analysis separately. One mega-prompt produces shallow results.
+- The file is never finished. New patterns surface over time. Add them.
+- This process works for any medium: tweets, essays, newsletters, transcripts, books.
